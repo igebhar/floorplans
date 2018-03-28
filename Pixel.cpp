@@ -5,48 +5,36 @@ Isabella Gebhart
 #include <vector>
 
 // Default Constructor
-Pixel::vector <Pixel> pixel () {
-  uint8_t R = 0; //r
-  uint8_t G = 0; //g
-  uint8_t B = 0; //b
-}
+Pixel::Pixel (): R(0), G(0), B(0){ }
 
 // Copy Constructor
-Pixel:: vector<const Pixel &P> pixel {
-  Pixel.at(0) = P.at(0);  // Why can I access private members of P?
-  Pixel.at(1) = P.at(1);
-  Pixel.at(2) = P.at(2);
-}
+Pixel::Pixel (const Pixel& P): R(P.R) G(P.G), B(P.B){}
 
 // Param Constructor
-Pixel:: Pixel (uint8_t R, uint8_t G, uint8_t B) {
-  Pixel.at(0) = R;
-  Pixel.at(1) = G;
-  Pixel.at(2) = B;
-}
+Pixel::Pixel (uint8_t R, uint8_t G, uint8_t B): R(R), G(G), B(B) {}
 
 // Destructor
 Pixel::~Pixel() {}
 
 // Getters
-uint8_t Pixel::r () const { return Pixel.at(0); }
-uint8_t Pixel::g () const { return Pixel.at(1); }
-uint8_t Pixel::b () const { return Pixel.at(2); }
-
+uint8_t Pixel::r () const { return this->R; }
+uint8_t Pixel::g () const { return this->G; }
+uint8_t Pixel::b () const { return this->B; }
 // Setters
-void Pixel::set_r (uint8_t r) { Pixel.at(0) = r; }
-void Pixel::set_g (uint8_t g) { Pixel.at(1) = g; }
-void Pixel::set_b (uint8_t b) { Pixel.at(2) = b; }
+void Pixel::set_r (uint8_t r) { this->R = r; }
+void Pixel::set_g (uint8_t g) { this->G = g; }
+void Pixel::set_b (uint8_t b) { this->B = b; }
 
 // Assignment
 Pixel& Pixel::operator= (const Pixel& rhs) {
-  if (Pixel == &rhs) return *Pixel; // What does this line do?
-  Pixel.at(0) = rhs.at(0);
-  Pixel.at(1) = rhs.at(1);
-  Pixel.at(2) = rhs.at(2);
-  return *Pixel;
+  if (this == &rhs) return *this; // What does this line do?
+  this->R = rhs.R;
+  this->G = rhs.G;
+  this->B = rhs.B;
+  return *this;
 }
 
+// Output
 // Output
 std::ostream& operator<< (std::ostream& out, const Pixel& P) {
  return out  << "("
