@@ -1,15 +1,12 @@
 #include "Image.h"
 
 // Param constructor
-Image::Image (ifstream& in) {
-   this->HDR = Image::read_header(in);
-   this->PIX = Image::read_pixels(this->HDR, in);
-}
+//This cannot use the list method becuase 
+Image::Image (ifstream& in): HDR(Image::read_header(in)), PIX(Image::read_pixels(this->HDR,in)) {}
 
 // Copy constructor
-Image::Image (const Image& img) {
-  this->HDR = img.HDR;  // Assignment operator is really useful!
-  // We have to allocate new memory here
+Image::Image (const Image& img): HDR(img.HDR) {
+  // We have to allocate new memory here which means that the list option will not be appropriate here
   int num_pixels = img.HDR.width() * img.HDR.height();
   this->PIX = new Pixel[num_pixels];
   copy(img.PIX, img.PIX + num_pixels, this->PIX);
