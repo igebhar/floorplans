@@ -1,6 +1,9 @@
-/*******************************
-Isabella Gebhart
-*/
+/**
+Clare DuVal and Isabella Gebhart
+CPSC 002, 001 Spring 2018
+ckduval, igehbar
+**/
+
 #include "Pixel.h"
 #include <vector>
 
