@@ -12,7 +12,7 @@ Pixel::vector <Pixel> pixel () {
 }
 
 // Copy Constructor
-Pixel:: Pixel (const Pixel &P) {
+Pixel:: vector<const Pixel &P> pixel {
   Pixel.at(0) = P.at(0);  // Why can I access private members of P?
   Pixel.at(1) = P.at(1);
   Pixel.at(2) = P.at(2);
