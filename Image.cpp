@@ -1,15 +1,15 @@
 #include "Image.h"
-
+#include <iterator>
 // Param constructor
 //This cannot use the list method becuase 
 Image::Image (ifstream& in): HDR(Image::read_header(in)), PIX(Image::read_pixels(this->HDR,in)) {}
 
 // Copy constructor
-Image::Image (const Image& img): HDR(img.HDR) {
+Image::Image (const Image& img): HDR(img.HDR), pixels(img.pixels) {
   // We have to allocate new memory here which means that the list option will not be appropriate here
-  int num_pixels = img.HDR.width() * img.HDR.height();
-  this->PIX = new Pixel[num_pixels];
-  copy(img.PIX, img.PIX + num_pixels, this->PIX);
+  //int num_pixels = img.HDR.width() * img.HDR.height();
+  //this->PIX = new vector<Pixel> [num_pixels];
+  //copy(img.PIX, img.PIX + num_pixels, this->PIX);
 }
 
 // Destructor
