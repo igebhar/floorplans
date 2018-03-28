@@ -1,3 +1,9 @@
+/**
+Clare DuVal and Isabella Gebhart
+CPSC 002, 001 Spring 2018
+ckduval, igehbar
+**/
+
 #ifndef IMAGE_H
 #define IMAGE_H 1
 
