@@ -13,7 +13,7 @@ using namespace std;
 class Image {
   private:
     Header HDR;
-    Pixel* PIX;
+    vector<Pixel> pixel;
 
     // Disallow default constructor, why?
     Image ();
