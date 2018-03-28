@@ -25,7 +25,7 @@ class Image {
     Image ();
 
     // Used by Constructors to build Image
-    static Pixel* read_pixels(const Header&, std::ifstream&);
+    static vector<Pixel> read_pixels(const Header&, std::ifstream&);
     static Header read_header(std::ifstream&);
     static void ignore_comments(std::ifstream&);
 
