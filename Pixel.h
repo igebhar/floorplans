@@ -11,8 +11,8 @@ class Pixel {
 
   public:
     Pixel ();
-    Pixel (const Pixel&);
-    Pixel (uint8_t, uint8_t, uint8_t);
+    Pixel vector<const Pixel&>;
+    Pixel vector<uint8_t, uint8_t, uint8_t>;
     ~Pixel ();
 
     // Plain getters, use only these for immutable pixels
