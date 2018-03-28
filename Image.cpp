@@ -6,20 +6,14 @@ ckduval, igehbar
 #include "Image.h"
 #include <iterator>
 // Param constructor
-//This cannot use the list method becuase 
-Image::Image (ifstream& in): HDR(Image::read_header(in)), PIX(Image::read_pixels(this->HDR,in)) {}
+Image::Image (ifstream& in): HDR(Image::read_header(in)), pixel(Image::read_pixels(this->HDR,in)) {}
 
 // Copy constructor
-Image::Image (const Image& img): HDR(img.HDR), pixels(img.pixels) {
-  // We have to allocate new memory here which means that the list option will not be appropriate here
-  //int num_pixels = img.HDR.width() * img.HDR.height();
-  //this->PIX = new vector<Pixel> [num_pixels];
-  //copy(img.PIX, img.PIX + num_pixels, this->PIX);
+Image::Image (const Image& img): HDR(img.HDR), pixel(img.pixel) {
 }
 
 // Destructor
-Image::~Image () {
-  delete[] PIX;  // Don't allow memory leaks!
+Image::~Image () { // Don't allow memory leaks!
 }
 
 Header Image::read_header (ifstream& in) {
@@ -51,15 +45,15 @@ void Image::ignore_comments (ifstream& in) {
 }
 
 // This function allocates memory!
-Pixel* Image::read_pixels (const Header& hdr, ifstream& in) {
-  int num_pixels = hdr.width() * hdr.height();
-  Pixel* pixels = new Pixel[num_pixels];
+vector<Pixel> Image::read_pixels (const Header& hdr, ifstream& in) {
+  vector<Pixel> pixels;
+ int num_pixels = hdr.width() * hdr.height();
 
   if (hdr.magic() == "P3") {
     uint r,g,b;
     for (int i = 0; i < num_pixels; i++) {
       in >> r >> g >> b;
-      pixels[i] = Pixel(r, g, b); // Assignment operator to the rescue again!
+      pixels.push_back(Pixel(r,g,b));
     }
   } else {
     uint8_t r,g,b;
@@ -67,7 +61,7 @@ Pixel* Image::read_pixels (const Header& hdr, ifstream& in) {
       r = in.get();
       g = in.get();
       b = in.get();
-      pixels[i] = Pixel(r, g, b);
+      pixels.push_back(Pixel(r,g,b));
     }
   }
 
@@ -76,7 +70,7 @@ Pixel* Image::read_pixels (const Header& hdr, ifstream& in) {
 
 // accessors
 const Header& Image::header () const { return this->HDR; }
-const Pixel* Image::pixels () const { return this->PIX; }
+const vector<Pixel> Image::pixels () const { return pixel; }
 
 // If someone wants to change the header, the Image controls
 // which fields it will to expose
@@ -97,15 +91,15 @@ void Image::write_to (ofstream& out) const {
 
   if (this->HDR.magic() == "P3") {
     for (int i = 0; i < num_pixels; i++) {
-      Pixel* p = this->PIX + i;
-      out << (int) p->r() << ' '
-          << (int) p->g() << ' '
-          << (int) p->b() << ' ';
+       Pixel p = this->pixel.at(i);
+      out << (int) p.r() << ' '
+          << (int) p.g() << ' '
+          << (int) p.b() << ' ';
     }
   } else {
     for (int i = 0; i < num_pixels; i++) {
-      Pixel* p = this->PIX + i;
-      out << p->r() << p->g() << p->b();
+      Pixel p = this->pixel.at(i);
+      out << p.r() << p.g() << p.b();
     }
   }
 }
@@ -116,18 +110,12 @@ Image& Image::operator=(const Image& rhs) {
   // Header is simple
   this->HDR = rhs.HDR;  // Assignment operator
 
-  // Pixels are not, we need to make sure there is enough room
-  int num_pixels = rhs.HDR.width() * rhs.HDR.height();
-  delete[] this->PIX;
-  this->PIX = new Pixel[num_pixels];
-
-  // And do a complete copy
-  copy(rhs.PIX, rhs.PIX+num_pixels, this->PIX);
+  this->pixel = rhs.pixel;
   return *this;
 }
 
 // Get one pixel
 Pixel& Image::operator() (int x, int y) {
   int ndx = (this->HDR.width() * y) + x;
-  return this->PIX[ndx];
+  return this->pixel.at(ndx);
 }
