@@ -24,14 +24,15 @@ Filter::~Filter() {}
 Image& Filter::sharpen(Image& img, Matrix& k) {
    
    Image pic;
+   //Declare x, y as width, and height
 
    //If the matrix is 3x3
    if (k == 3) {
       for (
-         if (a > 1 || a < (img.width - 1) || b > 1 || b < (img.height - 1)) {
-            pic.pixel[a][b] = img([a][b]);
+         if (x > 1 || x < (img.width - 1) || y > 1 || y < (img.height - 1)) {
+            pic.pixel[x][y] = img([x][y]);
          } else {
-            pic.apply_kernel(img[a][b]);
+            pic.apply_kernel(img, x, y, k);
          }       
       }
    }
@@ -43,11 +44,29 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
 }
 
 Pixel Filter::apply_kernel(image& img, int x, int y, Matrix& k){
+        //3x3 Matrix
+        if (k == 3) {
 
+        } 
+
+        //5x5 Matrix
+        if (k == 5) {
+
+        }
 }
 
 int Filter::clamp(int lo, int hi, int x) {
         lo = 0;
         hi = 255;
-        return std::max(lo, std::min(x, hi));
+        
+        if ( x > hi ) {
+                return hi;
+                exit;
+        } else if ( x < lo ) {
+                return lo;
+                exit;
+        } else {
+                return x;
+                exit;
+        }
 }
