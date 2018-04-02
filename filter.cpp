@@ -22,12 +22,24 @@ Filter::Filter (): {}
 Filter::~Filter() {}
 
 Image& Filter::sharpen(Image& img, Matrix& k) {
-        if (k == 3) {
+   
+   Image pic;
 
-        }
-        if (k == 5) {
+   //If the matrix is 3x3
+   if (k == 3) {
+      for (
+         if (a > 1 || a < (img.width - 1) || b > 1 || b < (img.height - 1)) {
+            pic.pixel[a][b] = img([a][b]);
+         } else {
+            pic.apply_kernel(img[a][b]);
+         }       
+      }
+   }
+   
+   //If the matrix is 5x5
+   if (k == 5) {
 
-        }
+   }
 }
 
 Pixel Filter::apply_kernel(image& img, int x, int y, Matrix& k){
