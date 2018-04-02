@@ -34,6 +34,10 @@ Header Image::read_header (ifstream& in) {
   return Header(magic, w, h, mc);
 }
 
+// this function ignores comments and white space
+// that can be found in the header. 
+// this will help prevent errors that would be caused by
+// these things
 void Image::ignore_comments (ifstream& in) {
   char c;
   in.get(c);
@@ -47,7 +51,11 @@ void Image::ignore_comments (ifstream& in) {
   in.unget();
 }
 
-// This function allocates memory!
+// This function reads in information about the pixels
+// this is now set up to return a vector filled with the 
+// information about the pixels
+// This function  uses information from the header and
+// the image that will be taken in
 vector<Pixel> Image::read_pixels (const Header& hdr, ifstream& in) {
   vector<Pixel> pixels;
  int num_pixels = hdr.width() * hdr.height();
@@ -80,6 +88,7 @@ const vector<Pixel> Image::pixels () const { return pixel; }
 void Image::make_p3 () { this->HDR.magic() = "P3"; }
 void Image::make_p6 () { this->HDR.magic() = "P6"; }
 
+// This function writes a header for the new image
 void Image::write_header (ofstream& out) const {
   out << this->HDR.magic() << " "
       << this->HDR.width() << " "
@@ -87,6 +96,9 @@ void Image::write_header (ofstream& out) const {
       << this->HDR.max_color() << "\n";
 }
 
+// writes values of pixels to new image
+//this function used the .at() vector capability
+// to help fill the pixel array
 void Image::write_to (ofstream& out) const {
   write_header(out);
 
@@ -107,17 +119,18 @@ void Image::write_to (ofstream& out) const {
   }
 }
 
-// This function is important!
+// Returns value of image and will 
 Image& Image::operator=(const Image& rhs) {
-  if (this == &rhs) return *this; // Why do we need this? Hint: delete[]
-  // Header is simple
-  this->HDR = rhs.HDR;  // Assignment operator
+  if (this == &rhs) return *this; 
+  this->HDR = rhs.HDR; 
 
   this->pixel = rhs.pixel;
   return *this;
 }
 
-// Get one pixel
+// This function gets the value of one pixel 
+// it will return the point at this value using
+// .at() 
 Pixel& Image::operator() (int x, int y) {
   int ndx = (this->HDR.width() * y) + x;
   return this->pixel.at(ndx);
