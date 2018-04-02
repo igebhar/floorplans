@@ -16,6 +16,9 @@ Image::Image (const Image& img): HDR(img.HDR), pixel(img.pixel) {
 Image::~Image () { // Don't allow memory leaks!
 }
 
+// This fucntion reads the header information found in the ppm
+// this function returns the magic number, width, height, 
+// and max color 
 Header Image::read_header (ifstream& in) {
   string magic;
   int w, h, mc;
