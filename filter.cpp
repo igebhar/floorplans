@@ -58,15 +58,5 @@ Pixel Filter::apply_kernel(image& img, int x, int y, Matrix& k){
 int Filter::clamp(int lo, int hi, int x) {
         lo = 0;
         hi = 255;
-        
-        if ( x > hi ) {
-                return hi;
-                exit;
-        } else if ( x < lo ) {
-                return lo;
-                exit;
-        } else {
-                return x;
-                exit;
-        }
+        return std::max(lo, std::min(x, hi));
 }
