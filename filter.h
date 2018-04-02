@@ -2,12 +2,13 @@
 #define FILTER_H
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Pixel.h"
 #include "Header.h"
 #include "Image.h"
 
 using namespace std;
-using Matrix = vectr<vector<int>>;
+using Matrix = vector<vector<int>>;
 
 namespace Filter{
   extern Matrix K3,K5;
