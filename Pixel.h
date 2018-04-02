@@ -7,7 +7,8 @@ ckduval, igehbar
 #ifndef PIXEL_H
 #define PIXEL_H 1
 
-#include <ostream>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
