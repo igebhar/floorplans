@@ -28,7 +28,7 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
 
    //If the matrix is 3x3
    if (k == 3) {
-      for (
+      for ( //Can I use the (auto height : width) here?
          if (x > 1 || x < (img.width - 1) || y > 1 || y < (img.height - 1)) {
             pic.pixel[x][y] = img([x][y]);
          } else {
@@ -45,8 +45,10 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
 
 Pixel Filter::apply_kernel(image& img, int x, int y, Matrix& k){
         //3x3 Matrix
+        //A way to change 4 neighboring pixels and center pixel (switch case?)
         if (k == 3) {
-
+                //Pixel to the LEFT of center, this might work....?
+                
         } 
 
         //5x5 Matrix
