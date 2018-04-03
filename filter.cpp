@@ -21,10 +21,10 @@ Matrix Filter:: K5=
  {0,0,-1,0,0}};
  
 //Default Constructor
-Filter::Filter (ifstream& in): HDR(image::read_header(in)),
-        pixel(Image::read_pixels(this->HDR, in)) {}
+Filter::Filter (ifstream& in): image(Filter::sharpen(img, k), 
+   pixel(apply_kernel(img, x, y, k)), int(clamp(hi, lo, x)) {}
 
-//Copy COnstructor
+//Copy Constructor
 Filter::Filter (const Filter& fil): HDR(fil.HDR), pixel(fil.pixel) {}
 
 //Param Consructor
