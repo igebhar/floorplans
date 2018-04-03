@@ -11,7 +11,7 @@ ckduval, igehbar
 Pixel::Pixel (): R(0), G(0), B(0){ }
 
 // Copy Constructor
-Pixel::Pixel (const Pixel& P): R(P.R) G(P.G), B(P.B){}
+Pixel::Pixel (const Pixel& P): R(P.R), G(P.G), B(P.B){}
 
 // Param Constructor
 Pixel::Pixel (uint8_t R, uint8_t G, uint8_t B): R(R), G(G), B(B) {}
