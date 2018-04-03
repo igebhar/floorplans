@@ -18,7 +18,7 @@ Matrix Filter:: K5=
  {0,0,-1,0,0}, 
  {-1,-1,9,-1,-1}, 
  {0,0,-1,0,0},
- {0,0,-1,0,0},
+ {0,0,-1,0,0}};
  
 //Default Constructor
 Filter::Filter (ifstream& in): HDR(image::read_header(in)),
@@ -33,22 +33,22 @@ Filter::Filter (): {}
 //Destructor
 Filter::~Filter() {}
 
-// This function takes one pixel 
-// passes the pixel to apply_kernel function 
-// calculates the new RGB values
-// returns the new pixel values
-// Parameters: input image
-// kernel filter
+// This function takes one pixels passes the pixel to apply_kernel function 
+// calculates the new RGB values returns the new pixel values
+// Parameters: input image, kernel filter
 // outpur new image returned
 Image& Filter::sharpen(Image& img, Matrix& k) {
    
    Image pic;
    //Declare x, y as width, and height
+   int x = this->HDR.width();
+   int y = this->HDR.height();
+ 
+   //Size of Matrix
+   k = k / 2;
 
    //If the matrix is 3x3
-   if (k == 3)// k is equal to a matrix. Not sure if it can be compared like this
-    // maybe something like k = k/2 if ( k == 1) the it will be the 3X3 matrix else it will be 5x5
-   // {
+   if (k == 1) {
       for ( //Can I use the (auto height : width) here?
          if (x > 1 || x < (img.width - 1) || y > 1 || y < (img.height - 1)) {
             pic.pixel[x][y] = img([x][y]);
@@ -59,7 +59,7 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
    }
    
    //If the matrix is 5x5
-   if (k == 5) {
+   if (k == 2) {
 
    }
 }
