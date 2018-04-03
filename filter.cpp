@@ -38,30 +38,20 @@ Filter::~Filter() {}
 // Parameters: input image, kernel filter
 // outpur new image returned
 Image& Filter::sharpen(Image& img, Matrix& k) {
-   
-   Image pic;
-   //Declare x, y as width, and height
-   int x = this->HDR.width();
-   int y = this->HDR.height();
- 
-   //Size of Matrix
-   k = k / 2;
 
-   //If the matrix is 3x3
-   if (k == 1) {
-      for ( //Can I use the (auto height : width) here?
-         if (x > 1 || x < (img.width - 1) || y > 1 || y < (img.height - 1)) {
-            pic.pixel[x][y] = img([x][y]);
-         } else {
-            pic.apply_kernel(img, x, y, k);
-         }       
-      }
-   }
-   
-   //If the matrix is 5x5
-   if (k == 2) {
+        int center = k.size()/2;
+        int rows = img.header().height();
+        int columns = img.header().width();
 
-   }
+        Image copy(img);
+
+        for (int y = center; y < (columns - center); y++) {
+                for (int x = center; x < (rows - center); x++) {
+                        img.apply_kernel(img&, x, y, k);
+                }
+        }
+
+   return img;
 }
 
               
