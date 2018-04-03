@@ -8,6 +8,18 @@ ckduval, igehbar
 
 #include "filter.h"
 
+Matrix Filter:: K3 = 
+{{0,-1,0}, 
+ {-1,5,-1},
+ {0,-1,0}};
+
+Matrix Filter:: K5= 
+{{0,0,-1,0 ,0}, 
+ {0,0,-1,0,0}, 
+ {-1,-1,9,-1,-1}, 
+ {0,0,-1,0,0},
+ {0,0,-1,0,0},
+ 
 //Default Constructor
 Filter::Filter (ifstream& in): HDR(image::read_header(in)),
         pixel(Image::read_pixels(this->HDR, in)) {}
@@ -21,6 +33,13 @@ Filter::Filter (): {}
 //Destructor
 Filter::~Filter() {}
 
+// This function takes one pixel 
+// passes the pixel to apply_kernel function 
+// calculates the new RGB values
+// returns the new pixel values
+// Parameters: input image
+// kernel filter
+// outpur new image returned
 Image& Filter::sharpen(Image& img, Matrix& k) {
    
    Image pic;
@@ -43,6 +62,14 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
    }
 }
 
+              
+              
+// This function applies the new kernel filter to a single pixel
+// Parameters: Image passes in from sharpen function (image& img)
+// column location of the current pixel (x0
+//  row location of the current pixel (y)
+// kernel filter 
+// returns the new pixel 
 Pixel Filter::apply_kernel(image& img, int x, int y, Matrix& k){
         //3x3 Matrix
         //A way to change 4 neighboring pixels and center pixel (switch case?)
@@ -57,6 +84,10 @@ Pixel Filter::apply_kernel(image& img, int x, int y, Matrix& k){
         }
 }
 
+//checks to make sure the new pixel is within the correct values
+// parameters: lo - value of 0
+// hi- value of 255
+// x- current value of pixel being checked
 int Filter::clamp(int lo, int hi, int x) {
         lo = 0;
         hi = 255;
