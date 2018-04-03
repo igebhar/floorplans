@@ -81,7 +81,7 @@ vector<Pixel> Image::read_pixels (const Header& hdr, ifstream& in) {
 
 // accessors
 const Header& Image::header () const { return this->HDR; }
-const vector<Pixel> Image::pixels () const { return pixel; }
+const vector<Pixel> Image::pixels () const { return pixels }
 
 // If someone wants to change the header, the Image controls
 // which fields it will to expose
