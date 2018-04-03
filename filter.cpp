@@ -47,7 +47,7 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
 
    //If the matrix is 3x3
    if (k == 3)// k is equal to a matrix. Not sure if it can be compared like this
-    // maybe something like k = k/2 
+    // maybe something like k = k/2 if ( k == 1) the it will be the 3X3 matrix else it will be 5x5
    // {
       for ( //Can I use the (auto height : width) here?
          if (x > 1 || x < (img.width - 1) || y > 1 || y < (img.height - 1)) {
