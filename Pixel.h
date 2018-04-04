@@ -1,3 +1,5 @@
+//PIXEL.H//
+
 /**
 Clare DuVal and Isabella Gebhart
 CPSC 002, 001 Spring 2018

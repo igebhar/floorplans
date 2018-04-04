@@ -1,3 +1,5 @@
+//IMAGE.H//
+
 /**
 Clare DuVal and Isabella Gebhart
 CPSC 002, 001 Spring 2018
@@ -48,7 +50,7 @@ class Image {
     const Header& header() const;
     // Const accessor, dont let someone change the Pixel*
     // otherwise memory leaks!
-    const Pixel* pixels() const;
+    const vector<Pixel> pixels() const;
 
     // Assignment - More complicated than you think!
     Image& operator=(const Image& rhs);

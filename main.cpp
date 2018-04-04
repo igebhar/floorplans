@@ -1,3 +1,5 @@
+//MAIN.CPP// aka DRIVER.CPP
+
 /**
 Clare DuVal and Isabella Gebhart
 CPSC 002, 001 Spring 2018
@@ -11,14 +13,13 @@ ckduval, igehbar
 #include "image/Image.h"
 
 int main(int argc, char const *argv[]) {
-  if (argc != 4) {
-    std::cerr << "USAGE: ./out <in.ppm> <in2.ppm> <out.ppm>";
+  if (argc != 3) {
+    std::cerr << "USAGE: ./out <in.ppm> <out.ppm>";
     return 1;
   }
 
   // Open files
   std::ifstream in(argv[1]);
-  std::ifstream in2(argv[2]);
   std::ofstream out(argv[3]);
 
   if (!(in && in2 && out)) {
@@ -26,17 +27,12 @@ int main(int argc, char const *argv[]) {
     return 1;
   }
 
-  // ifstream constructor, let's read the file twice!
   Image puppy(in);
-  Image other_puppy(in2);
 
-  puppy = other_puppy;  // Spooky Assignment
-
-  puppy.make_p3();
+  puppy.sharpen();
   puppy.write_to(out);
 
   in.close();
-  in2.close();
   out.close();
 
   return 0;

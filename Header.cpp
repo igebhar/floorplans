@@ -1,3 +1,5 @@
+//HEADER.CPP//
+
 /**
 Clare DuVal and Isabella Gebhart
 CPSC 002, 001 Spring 2018
@@ -30,10 +32,9 @@ void Header::set_width(int w) { this->W = w; }
 void Header::set_height(int h) { this->H = h; }
 void Header::set_max_color(int mc) { this->MC = mc; }
 
-//* Assignment. This function assigns values for Magic, W, H, MC,
-*//this allows for the header to be formatted
+// Assignment
 Header& Header::operator= (const Header& hdr) {
-  if (this == &hdr) return *this;  
+  if (this == &hdr) return *this;  // What does this line do?
   this->MAGIC = hdr.MAGIC;
   this->W     = hdr.W;
   this->H     = hdr.H;
@@ -42,9 +43,6 @@ Header& Header::operator= (const Header& hdr) {
 }
 
 // Output
-// This function displays the output for the header
-// This will be the value of the magic number, width, height, 
-// and max_color
 std::ostream& operator<< (std::ostream& out, const Header& hdr) {
   return out  << hdr.magic() << std::endl
               << hdr.width() << std::endl
