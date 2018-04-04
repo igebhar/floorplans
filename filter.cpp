@@ -65,16 +65,33 @@ Pixel Filter::apply_kernel(Image& img, int x, int y, Matrix& k){
 			pix.r =+ y.r*k<>; //
 			pix.g =+ y.g*k<>;
 			pix.b =+ y.b*k<>;
-
+		}
+		for( int i = -center; i <= center; i++){
+			for( int j = -center; j <= center; j++){
+				Pixel& pix = img (x+i, y+j);
+				red += pix.r * k[center+i] [center +j]; 
+			}
 		}
 
-		//Clamp
-		img(x,y) = clamp(0, 255, x);
         }
 
         //5x5 Matrix
 	        if (k.size() == 5) {
-
+			int i, i; 
+			// Accesses all of the neighboring pixels
+			int center = k.size() /2;
+			for (int y = center ; y < 25; y++) {
+				pix.r =+ y.r*k<>;
+				pix.g =+ y.g*k<>;
+				pix.b =+ y.b*k<>;
+			}
+			for( int i = -center; i <= center; i++){
+				for( int j = -center; j <= center; j++){
+					Pixel& pix = img (x+i, y+j);
+					red += pix.r * k[center+i] [center +j]; 
+				}
+			}
+			
         }
 
 	pix.r = clamp(0, 255, pix.r);
