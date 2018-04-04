@@ -20,17 +20,25 @@ int main(int argc, char const *argv[]) {
 
   // Open files
   std::ifstream in(argv[1]);
-  std::ofstream out(argv[3]);
-
+  std::ofstream out(k3_+argv[2]);
+   std::ofstream out2(k5_+argv[2]);
+  
   if (!(in && out)) {
     std::cerr << "Could not open input/output\n";
     return 1;
   }
 
   Image puppy(in);
-
-  puppy.sharpen();
-  puppy.write_to(out);
+  
+  // this creates a copy of the puppy
+  Image puppy2(puppy);
+  puppy.sharpen(in, Filter::K5);
+  puppy2.sharpen(in, Filter::K3);
+  
+  puppy2.write_to(out);
+  puppy.write_to(out2);
+  
+  
 
   in.close();
   out.close();
