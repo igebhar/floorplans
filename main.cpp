@@ -22,7 +22,7 @@ int main(int argc, char const *argv[]) {
   std::ifstream in(argv[1]);
   std::ofstream out(argv[3]);
 
-  if (!(in && in2 && out)) {
+  if (!(in && out)) {
     std::cerr << "Could not open input/output\n";
     return 1;
   }
