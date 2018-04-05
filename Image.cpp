@@ -20,16 +20,6 @@ Image::Image (const Image& img): HDR(img.HDR), pixel(img.pixel) {
 Image::~Image () { // Don't allow memory leaks!
 }
 
-/*
-const Header& Image::header() const { return this->HDR;}
-const vector<Pixel>& Image::pixels() const { retrun this->PIX }
-
-Pixel& Image::operator() (int x, int y) {
-	int ndx = (this->HDR.width() * y) +x;
-	return this->PIX[ndx];
-}
-
-*/
 Header Image::read_header (ifstream& in) {
   string magic;
   int w, h, mc;
@@ -103,6 +93,7 @@ void Image::write_to (ofstream& out) const {
 
   int num_pixels = this->HDR.width() * this->HDR.height();
 
+  //Writes a P3
   if (this->HDR.magic() == "P3") {
     for (int i = 0; i < num_pixels; i++) {
        Pixel p = this->pixel.at(i);
@@ -110,7 +101,7 @@ void Image::write_to (ofstream& out) const {
           << (int) p.g() << ' '
           << (int) p.b() << ' ';
     }
-  } else {
+  } else { //Writes a P6
     for (int i = 0; i < num_pixels; i++) {
       Pixel p = this->pixel.at(i);
       out << p.r() << p.g() << p.b();
@@ -119,6 +110,7 @@ void Image::write_to (ofstream& out) const {
 }
 
 // This function is important!
+//Assignment operator
 Image& Image::operator=(const Image& rhs) {
   if (this == &rhs) return *this; // Why do we need this? Hint: delete[]
   // Header is simple
