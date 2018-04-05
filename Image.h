@@ -2,7 +2,7 @@
 
 /**
 Clare DuVal and Isabella Gebhart
-CPSC 002, 001 Spring 2018
+CPSC 002, 002 Spring 2018
 ckduval, igehbar
 **/
 
