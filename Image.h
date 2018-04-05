@@ -19,46 +19,46 @@ ckduval, igehbar
 using namespace std;
 
 class Image {
-  private:
-    Header HDR;
-   // vector<Pixel> pixel;
+    private:
+      Header HDR;
+      // vector<Pixel> pixel;
 
-    // Disallow default constructor, why?
-    Image ();
+      // Disallow default constructor, why?
+      Image ();
 
-    // Used by Constructors to build Image
-    static vector<Pixel> read_pixels(const Header&, std::ifstream&);
-    static Header read_header(std::ifstream&);
-    static void ignore_comments(std::ifstream&);
+      // Used by Constructors to build Image
+      static vector<Pixel> read_pixels(const Header&, std::ifstream&);
+      static Header read_header(std::ifstream&);
+      static void ignore_comments(std::ifstream&);
 
-    // Private helper methods
-    void write_header(std::ofstream&) const;
+      // Private helper methods
+      void write_header(std::ofstream&) const;
 
   public:
-    // Constructors
-    Image (std::ifstream&);
-    Image (const Image& i);
-    ~Image ();
+      // Constructors
+      Image (std::ifstream&);
+      Image (const Image& i);
+      ~Image ();
 
-    // Public member functions
-    void write_to(std::ofstream&) const;
-    void make_p3();
-    void make_p6();
+      // Public member functions
+      void write_to(std::ofstream&) const;
+      void make_p3();
+      void make_p6();
 
-    // Don't let someone change the header arbitrarily,
-    // Image should control what fields are allowed to change
-    const Header& header() const;
-    // Const accessor, dont let someone change the Pixel*
-    // otherwise memory leaks!
-    const vector<Pixel> pixels() const;
+      // Don't let someone change the header arbitrarily,
+      // Image should control what fields are allowed to change
+      const Header& header() const;
+      // Const accessor, dont let someone change the Pixel*
+      // otherwise memory leaks!
+      const vector<Pixel> pixels() const;
       vector<Pixel> pixel;
 
-    // Assignment - More complicated than you think!
-    Image& operator=(const Image& rhs);
+      // Assignment - More complicated than you think!
+      Image& operator=(const Image& rhs);
 
-    // Cool Pixel grabber
-    // What does returning by non-const ref let us do?
-    Pixel& operator()(int, int);
+      // Cool Pixel grabber
+      // What does returning by non-const ref let us do?
+      Pixel& operator()(int, int);
 };
 
 #endif
