@@ -35,15 +35,16 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
 
 	Image copy(img);
 
-	for (int y = center; y < (columns - center); y++) {
-		for (int x = center; x < (rows - center); x++) {
-			img.pixel[i] = apply_kernel(img, x, y, k);
+	for (int x = center; x < (rows - center); x++) {
+		for (int y = center; y < (columns - center); y++) {
+			img.pixel[i] = apply_kernel(copy, x, y, k);
 			i++;
-		}
+    }
 	}
 
    return img;
 }
+
 
 
 
@@ -55,49 +56,43 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
 // returns the new pixel
 
 Pixel Filter::apply_kernel(Image& img, int x, int y, Matrix& k){
-        Pixel pix;
+    Pixel pix;
+        int red = 0;
+        int green = 0;
+        int blue = 0;
 	//3x3 Matrix
-        if (k.size() == 3) {
-		int i, j;
+ if (k.size() == 3) {
                 //Accesses all of the neighboring pixels
-		int center = k.size / 2;
-		for (int y = center; y < 9; y++) {
-			pix.r =+ y.r*k<>; //
-			pix.g =+ y.g*k<>;
-			pix.b =+ y.b*k<>;
-		}
+		int center = k.size() / 2;
 		for( int i = -center; i <= center; i++){
 			for( int j = -center; j <= center; j++){
 				Pixel& pix = img (x+i, y+j);
-				red += pix.r * k[center+i] [center +j]; 
-			}
+				red += pix.r() * k[center+i][center +j];
+        green += pix.g() * k[center+i][center +j];
+        blue += pix.b() * k[center+i][center +j];
+      }
 		}
 
-        }
+  }
 
-        //5x5 Matrix
-	        if (k.size() == 5) {
-			int i, i; 
+      //5x5 Matrix
+   if (k.size() == 5) {
 			// Accesses all of the neighboring pixels
 			int center = k.size() /2;
-			for (int y = center ; y < 25; y++) {
-				pix.r =+ y.r*k<>;
-				pix.g =+ y.g*k<>;
-				pix.b =+ y.b*k<>;
-			}
 			for( int i = -center; i <= center; i++){
 				for( int j = -center; j <= center; j++){
 					Pixel& pix = img (x+i, y+j);
-					red += pix.r * k[center+i] [center +j]; 
+					red += pix.r() * k[center+i] [center +j];
+          green += pix.g() * k[center+i] [center +j];
+          blue += pix.b() * k[center+i] [center +j];
 				}
 			}
-			
-        }
 
-	pix.r = clamp(0, 255, pix.r);
-	pix.g = clamp(0, 255, pix.g);
-	pix.b = clamp(0, 255, pix.b);
+    }
 
+	pix.set_r(clamp(0, 255, red)); //= clamp(0, 255, red);
+	pix.set_g(clamp(0, 255, green));
+	pix.set_b(clamp(0, 255, blue));
 	return pix;
 }
 
