@@ -21,7 +21,7 @@ using namespace std;
 class Image {
   private:
     Header HDR;
-    vector<Pixel> pixel;
+   // vector<Pixel> pixel;
 
     // Disallow default constructor, why?
     Image ();
@@ -51,6 +51,7 @@ class Image {
     // Const accessor, dont let someone change the Pixel*
     // otherwise memory leaks!
     const vector<Pixel> pixels() const;
+      vector<Pixel> pixel;
 
     // Assignment - More complicated than you think!
     Image& operator=(const Image& rhs);
