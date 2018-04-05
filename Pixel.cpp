@@ -2,7 +2,7 @@
 
 /**
 Clare DuVal and Isabella Gebhart
-CPSC 002, 001 Spring 2018
+CPSC 002, 002 Spring 2018
 ckduval, igehbar
 **/
 
@@ -32,17 +32,17 @@ void Pixel::set_b (uint8_t b) { this->B = b; }
 
 // Assignment
 Pixel& Pixel::operator= (const Pixel& rhs) {
-  if (this == &rhs) return *this; // What does this line do?
-  this->R = rhs.R;
-  this->G = rhs.G;
-  this->B = rhs.B;
-  return *this;
+    if (this == &rhs) return *this; // What does this line do?
+    this->R = rhs.R;
+    this->G = rhs.G;
+    this->B = rhs.B;
+    return *this;
 }
 
 // Output
 // Output
 std::ostream& operator<< (std::ostream& out, const Pixel& P) {
- return out  << "("
+    return out  << "("
              << P.R << " "
              << P.G << " "
              << P.B << ")";
