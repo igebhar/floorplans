@@ -2,27 +2,30 @@
 
 /**
 Clare DuVal and Isabella Gebhart
-CPSC 002, 001 Spring 2018
+CPSC 002, 002 Spring 2018
 ckduval, igehbar
 **/
 
+//Includes
 #include <iterator>
 #include "filter.h"
 #include "Image.h"
 
+//3x3 Matrix
 Matrix Filter::K3 =
 {{0,-1,0},
  {-1,5,-1},
  {0,-1,0}};
 
+//5x5 Matrix
 Matrix Filter::K5 =
 {{0,0,-1,0,0},
  {0,0,-1,0,0},
  {-1,-1,9,-1,-1},
  {0,0,-1,0,0},
  {0,0,-1,0,0}};
+
 // This function takes one pixel passes the pixel to apply_kernel function
-// calculates the new RGB values returns the new pixel values
 // Parameters: input image, kernel filter
 // output new image returned
 Image& Filter::sharpen(Image& img, Matrix& k) {
@@ -39,58 +42,57 @@ Image& Filter::sharpen(Image& img, Matrix& k) {
 		for (int y = center; y < (columns - center); y++) {
 			img.pixel[i] = apply_kernel(copy, x, y, k);
 			i++;
-    }
+    		}
 	}
-
-   return img;
+   	return img;
 }
 
-
-
-
 // This function applies the new kernel filter to a single pixel
-// Parameters: Image passes in from sharpen function (image& img)
-// column location of the current pixel (x0
-//  row location of the current pixel (y)
-// kernel filter
+// Parameters: Image passes in from sharpen function (image& img),
+// column location of the current pixel (x),
+// row location of the current pixel (y),
+// and kernel filter
 // returns the new pixel
 
 Pixel Filter::apply_kernel(Image& img, int x, int y, Matrix& k){
-    Pixel pix;
+	Pixel pix;
+	//Dummy variables
         int red = 0;
         int green = 0;
         int blue = 0;
 	//3x3 Matrix
- if (k.size() == 3) {
+	if (k.size() == 3) { //3x3 Matrix
                 //Accesses all of the neighboring pixels
 		int center = k.size() / 2;
 		for( int i = -center; i <= center; i++){
 			for( int j = -center; j <= center; j++){
+				//Changes rgb values according to the 
+				//corresponding value in the matrix
 				Pixel& pix = img (x+i, y+j);
 				red += pix.r() * k[center+i][center +j];
-        green += pix.g() * k[center+i][center +j];
-        blue += pix.b() * k[center+i][center +j];
-      }
+        			green += pix.g() * k[center+i][center +j];
+        			blue += pix.b() * k[center+i][center +j];
+     			}
 		}
-
-  }
-
-      //5x5 Matrix
-   if (k.size() == 5) {
-			// Accesses all of the neighboring pixels
-			int center = k.size() /2;
-			for( int i = -center; i <= center; i++){
-				for( int j = -center; j <= center; j++){
-					Pixel& pix = img (x+i, y+j);
-					red += pix.r() * k[center+i] [center +j];
-          green += pix.g() * k[center+i] [center +j];
-          blue += pix.b() * k[center+i] [center +j];
-				}
+  	}
+	//5x5 Matrix
+	if (k.size() == 5) {
+		// Accesses all of the neighboring pixels
+		int center = k.size() /2;
+		for( int i = -center; i <= center; i++){
+			for( int j = -center; j <= center; j++){
+				//Changes rgb values according to the 
+				//corresponding value in the matrix
+				Pixel& pix = img (x+i, y+j);
+				red += pix.r() * k[center+i] [center +j];
+          			green += pix.g() * k[center+i] [center +j];
+          			blue += pix.b() * k[center+i] [center +j];
 			}
+		}
+    	}
 
-    }
-
-	pix.set_r(clamp(0, 255, red)); //= clamp(0, 255, red);
+	//Checks all new RGB values are within range [0,255]
+	pix.set_r(clamp(0, 255, red));
 	pix.set_g(clamp(0, 255, green));
 	pix.set_b(clamp(0, 255, blue));
 	return pix;
