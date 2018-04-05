@@ -2,7 +2,7 @@
 
 /**
 Clare DuVal and Isabella Gebhart
-CPSC 002, 001 Spring 2018
+CPSC 002, 002 Spring 2018
 ckduval, igehbar
 **/
 
@@ -15,30 +15,30 @@ ckduval, igehbar
 using namespace std;
 
 class Pixel {
-  private:
-    uint8_t R, G, B;
+    private:
+       uint8_t R, G, B;
 
-  public:
-    Pixel ();
-    Pixel (const Pixel&);
-    Pixel (uint8_t, uint8_t, uint8_t);
-    ~Pixel ();
+    public:
+      Pixel ();
+      Pixel (const Pixel&);
+      Pixel (uint8_t, uint8_t, uint8_t);
+      ~Pixel ();
 
-    // Plain getters, use only these for immutable pixels
-    uint8_t r () const;
-    uint8_t g () const;
-    uint8_t b () const;
+      // Plain getters, use only these for immutable pixels
+      uint8_t r () const;
+      uint8_t g () const;
+      uint8_t b () const;
 
-    // Plain setters, use these for mutable pixels
-    void set_r(uint8_t);
-    void set_g(uint8_t);
-    void set_b(uint8_t);
+      // Plain setters, use these for mutable pixels
+      void set_r(uint8_t);
+      void set_g(uint8_t);
+      void set_b(uint8_t);
 
-    // Assignment operator
-    Pixel& operator=(const Pixel&);
+      // Assignment operator
+      Pixel& operator=(const Pixel&);
 
-    // Output operator
-    friend std::ostream& operator<<(std::ostream&, const Pixel&);
+      // Output operator
+      friend std::ostream& operator<<(std::ostream&, const Pixel&);
 };
 
 #endif
