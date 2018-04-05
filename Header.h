@@ -2,7 +2,7 @@
 
 /*
 Clare DuVal and Isabella Gebhart
-CPSC 002, 001 Spring 2018
+CPSC 002, 002 Spring 2018
 ckduval, igehbar
 **/
 
@@ -15,33 +15,33 @@ ckduval, igehbar
 using namespace std;
 
 class Header {
-private:
-    std::string MAGIC;
-    int W, H, MC;
+    private:
+        std::string MAGIC;
+        int W, H, MC;
 
-  public:
-    Header ();
-    Header (const Header& HDR);
-    Header (std::string m, int w, int h, int mc);
-    ~Header ();
+    public:
+        Header ();
+        Header (const Header& HDR);
+        Header (std::string m, int w, int h, int mc);
+        ~Header ();
 
-    // Value getter, use only these for immutable headers
-    std::string magic() const;
-    int width() const;
-    int height() const;
-    int max_color() const;
+        // Value getter, use only these for immutable headers
+        std::string magic() const;
+        int width() const;
+        int height() const;
+        int max_color() const;
 
-    // Setter, use for mutable headers - or use references!
-    void set_magic(string);
-    void set_width(int);
-    void set_height(int);
-    void set_max_color(int);
+        // Setter, use for mutable headers - or use references!
+        void set_magic(string);
+        void set_width(int);
+        void set_height(int);
+        void set_max_color(int);
 
-    // Assignment
-    Header& operator= (const Header&);
+        // Assignment
+        Header& operator= (const Header&);
 
-    // Output
-    friend std::ostream& operator<< (std::ostream&, const Header&);
+        // Output
+        friend std::ostream& operator<< (std::ostream&, const Header&);
 };
 
 #endif
